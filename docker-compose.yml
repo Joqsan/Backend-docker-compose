@@ -1,0 +1,35 @@
+version: "3.0"
+
+services:
+
+  db:
+    image: mongo
+    container_name: db
+    ports:
+      - 27017:27017
+
+  db-filler:
+    build:
+      context: ./db-filler
+      args:
+        - DB_HOST=db
+        - DB_NAME=my_database
+        - DB_PORT=27017
+        - DATA_DIR=/my-data
+    volumes:
+      - /home/tpos2021/tpo2021101/hw2/csv-files:/my-data
+    depends_on:
+      - db
+
+  server:
+    build:
+      context: ./server
+      args:
+        - DB_HOST=db
+        - DB_NAME=my_database
+        - DB_PORT=27017
+        - SERVER_PORT=10600
+    ports:
+      - 10600:10600
+    depends_on:
+      - db-filler
