@@ -113,4 +113,4 @@ db-filler_1  | Check passed. Data in grades.csv successfully inserted into Mongo
 Проверяем, что контейнер образа `hw2_db-filler` не убивался, а только установиля
 
 <pre><code>docker container ls -f status=exited -a
-</code></pre>Ё~
+</code></pre>
